@@ -1,0 +1,106 @@
+
+/control/alias vacuumColor  "0.0  0.4  0.4  1.0"
+#/control/alias vacuumVisibility false
+/control/alias vacuumVisibility true
+#/control/alias containerVisibility false
+/control/alias containerVisibility true
+/control/alias containerColor  "0.3  0.3  0.3  0.5"
+
+/control/alias wheelColor0 "0.9  0.9  0.0  0.9"
+#/control/alias wheelColor0 "1.0  0.5  0.0  0.95"
+#/control/alias wheelColor1 "0.9  0.0  0.9  0.95"
+/control/alias wheelColor1 "0.9  0.49  0.0  1.0"
+/control/alias wheelColor2 "1.0  0.49  0.0  0.73"
+/control/alias DummyWheelColor "0.9  0.36  0.22  0.5"
+/control/alias TargetColor "0.5  0.36  0.54  0.9"
+
+#/control/alias AbsorberBeOColor "0.43  0.5  0.5  1.0"
+#/control/alias AbsorberCColor "0.21  0.27  0.31  1.0"
+/control/alias AbsorberBeOColor "0.63  0.6  0.6  1.0"
+/control/alias AbsorberCColor "0.41  0.47  0.51  1.0"
+
+#/control/alias AlpidTrkColor  "0.9  0.36  0.22  0.6"
+#/control/alias PixStnFrameColor  "0.2  0.2  0.6  0.6"
+/control/alias AlpidTrkColor  "0.57  0.63  0.81  1.00"
+/control/alias PixStnFrameColor  "0.2  0.2  0.6  1.00"
+#/control/alias MagnetCuCoilColor  "0.89 0.35 0.13  0.73"
+#/control/alias MagnetFeColor  "0.5 0.09 0.09  0.73"
+/control/alias MagnetCuCoilColor  "0.91 0.84 0.42  1.0"
+/control/alias MagnetFeColor  "0.4 0.6 0.8 1.0"
+
+/vis/viewer/set/style surface
+
+#/vis/viewer/set/lightsThetaPhi 130 30 deg
+/vis/viewer/set/lightsThetaPhi 45 120 deg
+#/vis/viewer/set/lightsThetaPhi 60 120 deg
+
+# Logical volumes settings 
+############################
+
+/vis/geometry/set/visibility World 0 false
+
+/vis/geometry/set/visibility  logicChamberContainer 0 {containerVisibility}
+/vis/geometry/set/colour      logicChamberContainer 0 {containerColor}
+
+/vis/geometry/set/colour  logicChamber     {wheelColor1}
+/vis/geometry/set/colour  logicChamberGas  {wheelColor1}
+
+/vis/geometry/set/colour  logicDummyMuChamber_0     {DummyWheelColor}
+/vis/geometry/set/colour  logicDummyMuChamber_1     {DummyWheelColor}
+/vis/geometry/set/colour  logicDummyMuChamber_2     {DummyWheelColor}
+/vis/geometry/set/colour  logicDummyMuChamber_3     {DummyWheelColor}
+/vis/geometry/set/colour  logicDummyMuChamber_4     {DummyWheelColor}
+/vis/geometry/set/colour  logicDummyMuChamber_5     {DummyWheelColor}
+
+/vis/geometry/set/colour  logicPbTarget_0     {TargetColor}
+/vis/geometry/set/colour  logicPbTarget_1     {TargetColor}
+/vis/geometry/set/colour  logicPbTarget_2     {TargetColor}
+/vis/geometry/set/colour  logicPbTarget_3     {TargetColor}
+/vis/geometry/set/colour  logicPbTarget_4     {TargetColor}
+
+
+
+/vis/geometry/set/colour  logicAbsorberBeOH_1     {AbsorberBeOColor}
+/vis/geometry/set/colour  logicAbsorberBeOH_2     {AbsorberBeOColor}
+/vis/geometry/set/colour  logicAbsorberPlugW_1     {DummyWheelColor}
+/vis/geometry/set/colour  logicAbsorberPlugW_1     {DummyWheelColor}
+
+/vis/geometry/set/visibility  logicAbsorberC_C 0 {containerVisibility}
+/vis/geometry/set/colour      logicAbsorberC_C 0 {containerColor}
+
+/vis/geometry/set/colour  logicAbsorberC_1_1X0     {AbsorberCColor}
+#/vis/geometry/set/colour  logicAbsorberC_1     {AbsorberCColor}
+#/vis/geometry/set/colour  logicAbsorberC_2     {AbsorberCColor}
+/vis/geometry/set/colour  logicAbsorberC_Wall     {AbsorberCColor}
+
+/vis/geometry/set/visibility  logicTMagnetContainer 0 {containerVisibility}
+/vis/geometry/set/colour      logicTMagnetContainer 0 {containerColor}
+
+/vis/geometry/set/visibility  logicIPContainer 0 {containerVisibility}
+/vis/geometry/set/colour      logicIPContainer 0 {containerColor}
+
+#/vis/geometry/set/visibility  logicPixStnContainer 0 {containerVisibility}
+#/vis/geometry/set/colour      logicPixStnContainer 0 {containerColor}
+
+/vis/geometry/set/colour  logicAlpidFrm     {PixStnFrameColor}
+/vis/geometry/set/colour  logicAlpidTrk     {AlpidTrkColor}
+
+#/vis/geometry/set/visibility  logicDipoleMContainer 0 {containerVisibility}
+#/vis/geometry/set/colour      logicDipoleMContainer 0 {containerColor}
+/vis/geometry/set/colour  logicCuPole       {MagnetCuCoilColor}
+/vis/geometry/set/colour  logicIronPole     {MagnetFeColor}
+/vis/geometry/set/colour  logicFeBox        {MagnetFeColor}
+/vis/geometry/set/colour  logicFeTrap       {MagnetFeColor}
+/vis/geometry/set/colour  logicFeTrapRoof   {MagnetFeColor}
+
+/vis/geometry/set/colour  logicTMagSmallTrbase             {MagnetCuCoilColor}
+/vis/geometry/set/colour  logicTMagBigTrbase               {MagnetCuCoilColor}
+/vis/geometry/set/colour  logicTMagTrHight                 {MagnetCuCoilColor}
+/vis/geometry/set/colour  logicTMagBottomRounding          {MagnetCuCoilColor}
+/vis/geometry/set/colour  logicTMagCoilSide                {MagnetCuCoilColor}
+/vis/geometry/set/colour  logicTMagSmallTrbaseRounding     {MagnetCuCoilColor}
+/vis/geometry/set/colour  logicTMagBigTrbaseRounding       {MagnetCuCoilColor}
+/vis/geometry/set/colour  logicTMagCore                    {MagnetCuCoilColor}
+
+
+

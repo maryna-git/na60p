@@ -1,6 +1,6 @@
-# $Id: na60_mu.mac 81528 2022-03-22 sqy $
+# $Id: na60_mu.mac 81528 2023-01-19 borysova $
 #
-# macro file for lxbeamsim.cc 
+# macro file for na60psim.cc
 #
 /control/verbose 2
 /run/verbose 2
@@ -10,39 +10,12 @@
 # Some geometry settings
 ############################################
 
-#/lxphoton/det/setAbsMat   Galactic
-
-#/lxphoton/det/setAbsMat    Aluminium
-#/lxphoton/det/setAbsThick  0.8897 mm
-#/lxphoton/det/setAbsThick  11.0 mm
-#/lxphoton/det/setAbsThick  22.0 mm
-#/lxphoton/det/setAbsThick  44.5 mm
-#/lxphoton/det/setAbsThick  89.0 mm
-
-#/lxphoton/det/setAbsMat    Copper
-#/lxphoton/det/setAbsThick  3.6 mm
-#/lxphoton/det/setAbsThick  7.2 mm
-#/lxphoton/det/setAbsThick  14.4 mm
-
-#/lxphoton/det/setAbsMat     Nickel
-#/lxphoton/det/setAbsThick   0.01 mm
-
-/lxphoton/det/setAbsMat     Tungsten
-#/lxphoton/det/setAbsThick   1.75 mm
-/lxphoton/det/setAbsThick   0.035 mm
-#/lxphoton/det/setAbsThick   0.35 mm
-#/lxphoton/det/setAbsThick   0.875 mm
-
 #/lxphoton/det/setWorldZ    400.0 cm
 #/lxphoton/det/setWorldZ    1000.0 cm
 #/lxphoton/det/setWorldZ    11.2 m
 #/lxphoton/det/setWorldZ    8.2 m
 /lxphoton/det/setWorldZ     50.0 m
 #/lxphoton/det/setWorldZ    2400.0 cm
-#/lxphoton/det/setAbsZpos   0.0 cm
-
-#/lxphoton/det/setAbsYZ    10 cm
-#
 
 #/control/execute  lxmagnet.mac
 
@@ -81,7 +54,7 @@
 /luxe/run/add_intercept_volume   Target1     9001
 /luxe/run/add_intercept_volume   Target2     9002
 /luxe/run/add_intercept_volume   Target3     9003
-/luxe/run/add_intercept_volume   Target4     9003
+/luxe/run/add_intercept_volume   Target4     9004
 
 /luxe/run/add_intercept_volume   PixStn0     4000
 /luxe/run/add_intercept_volume   PixStn1     4010
@@ -107,10 +80,10 @@
 ############################################
 #
 #/lxphoton/gun/setDefault
-#/lxphoton/gun/beamType    mono
+/lxphoton/gun/beamType    mono
 #/lxphoton/gun/setPosition  0.3  0.0  4.25 m
 #/lxphoton/gun/setPosition  0.0  0.0  0.0 m
-#/lxphoton/gun/setPosition  0.0  0.8  0.0 m
+/lxphoton/gun/setPosition  0.0  0.8  0.0 m
 
 #/lxphoton/gun/beamType    gaussian
 #/lxphoton/gun/setSigmaX   5 um
@@ -125,9 +98,8 @@
 #/lxphoton/gun/MCParticlesFile       test_data1.out
 #/lxphoton/gun/MCParticlesFileList  list_of_mc_out_files.txt
 
-/lxphoton/gun/beamType              mctupleg4
-/lxphoton/gun/MCParticlesFile       /Users/marynaborysova/My_work/Na60+/g4/mugen/pythia/pythia8307/examples/na60_pp40GeV_2mumu_mass_dalitz_pthat1.5GeV_3e6ev_tree_v6.root
-#/lxphoton/gun/MCParticlesFile       na60_pp40GeV_pthat1.5GeV_2372ev_2test_ntuple.root
+#/lxphoton/gun/beamType              mctupleg4
+#/lxphoton/gun/MCParticlesFile       mc_ntuple.root
 
 #This allows to select specific particles for simulation from MC files.
 #Particles are added to the selection list by this command
@@ -138,7 +110,7 @@
 #/lxphoton/gun/MCWeightScale         1000
 
 #Number of the events to skip in the beginning of the file
-/lxphoton/gun/skipMCEvents          1 #19000
+#/lxphoton/gun/skipMCEvents           #19000
 
 #/lxphoton/gun/SpectraFile   spectra_test1.txt
 #/lxphoton/gun/SpectraFile   spectra_test_compt.txt
@@ -160,10 +132,7 @@
 #/lxphoton/ttree_particle e+
 
 
-/analysis/setFileName     g4out_na60_pp40GeV_2mumu_mass_dalitz_pthat1.5GeV_3e3ev_2testAbsorber.root
-#/analysis/setFileName    luxe_bckg_mono_175gev_w001x0_cv7emstd_1umstep_tv31_hv1_G4CashKarpRKF45_kt20.root
-#/analysis/setFileName    luxe_bckg_mono_175gev_w001x0_cv7emstd_1umstep_tv31_hv1_G4DormandPrince745_kt20_uniform.root
-#/analysis/setFileName    luxe_bckg_mono_175gev_w001x0_cv7emstd_1umstep_tv31_hv1_G4DormandPrince745_kt20_measur1000.root
+/analysis/setFileName     g4out_na60_mono_mu5GeV.root
 
 # Histograms settings and activation, some of them are adjusted in RunAction::BeginOfRunAction
 ############################################
@@ -176,6 +145,6 @@
 #/run/beamOn 10000000
 #/run/beamOn 6250000
 #/run/beamOn 10010
-/run/beamOn 3000 #2370
+/run/beamOn 3000
 ####################################
 

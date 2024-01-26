@@ -34,6 +34,7 @@ class MEP48MagnetAssembly: public N6MagnetAssembly
 
   protected:
     void ConstructMagnet();
+    void AddAssmblyVolumes(G4AssemblyVolume* vasm, G4AssemblyVolume* cpyasm, G4ThreeVector &translation, G4RotationMatrix *rotation);
 
   protected:
     G4String          fMagnetType;

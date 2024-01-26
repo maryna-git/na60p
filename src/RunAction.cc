@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <iomanip>
 #include <vector>
+#include <string>
+#include <sys/stat.h>
 
 #include "RunAction.hh"
 #include "DetectorConstruction.hh"
@@ -132,7 +134,13 @@ void RunAction::BeginOfRunAction(const G4Run*)
   if (isMaster) {
     if (fDumpGeometry) {
       G4GDMLParser parser;
-      parser.Write("lxgeomdump.gdml", fDetector->GetphysiWorld());
+      G4String fname("lxgeomdump.gdml");
+      struct stat finfo;
+      int i = 0;
+      while (stat(fname.c_str(), &finfo) == 0) {
+        fname = G4String("lxgeomdump_") + G4UIcommand::ConvertToString(i++) + G4String(".gdml");
+      }
+      parser.Write(fname, fDetector->GetphysiWorld());
     }
   }
 
@@ -239,12 +247,15 @@ void RunAction::AddSensitiveVolume (const G4String volumename)
     case 4 :
       tmp = volname(vdelimpos[2]+1, vdelimpos[3]-vdelimpos[2]-1);
       dl = G4UIcmdWithAnInteger::GetNewIntValue(tmp.strip(G4String::both));
+      [[fallthrough]];
     case 3 :
       tmp = volname(vdelimpos[1]+1, vdelimpos[2]-vdelimpos[1]-1);
       dsd = G4UIcmdWithAnInteger::GetNewIntValue(tmp.strip(G4String::both));
+      [[fallthrough]];
     case 2 :
       tmp = volname(vdelimpos[0]+1, vdelimpos[1]-vdelimpos[0]-1);
       vid = G4UIcmdWithAnInteger::GetNewIntValue(tmp.strip(G4String::both));
+      [[fallthrough]];
     case 1:
       vname = volname(0, vdelimpos[0]);
       vname.strip(G4String::trailing);

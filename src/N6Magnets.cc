@@ -148,9 +148,11 @@ void MEP48MagnetAssembly::ConstructMagnet()
 
   fMagnetAssembly = new G4AssemblyVolume();
   G4ThreeVector trmhassmbly(0.0, 0.0, 0.0);
-   fMagnetAssembly->AddPlacedAssembly(magnetHalfAssembly, trmhassmbly, 0);
-   fMagnetAssembly->AddPlacedAssembly(magnetHalfAssembly, trmhassmbly,
-                                      new G4RotationMatrix(G4ThreeVector(1.0, 0.0, 0.0), M_PI));
+//    fMagnetAssembly->AddPlacedAssembly(magnetHalfAssembly, trmhassmbly, 0);
+//    fMagnetAssembly->AddPlacedAssembly(magnetHalfAssembly, trmhassmbly,
+//                                       new G4RotationMatrix(G4ThreeVector(1.0, 0.0, 0.0), M_PI));
+  AddAssmblyVolumes(fMagnetAssembly, magnetHalfAssembly, trmhassmbly, 0);
+  AddAssmblyVolumes(fMagnetAssembly, magnetHalfAssembly, trmhassmbly, new G4RotationMatrix(G4ThreeVector(1.0, 0.0, 0.0), M_PI));
 }
 
 
@@ -163,5 +165,39 @@ void MEP48MagnetAssembly::CostructSupport(G4LogicalVolume* lWorld, const G4Three
 }
 
 
+
+void MEP48MagnetAssembly::AddAssmblyVolumes(G4AssemblyVolume* vasm, G4AssemblyVolume* cpyasm,
+                                             G4ThreeVector &translation, G4RotationMatrix *rotation)
+{
+  G4RotationMatrix vrot;
+  if (rotation) vrot = *rotation;
+  G4Transform3D transformation(vrot, translation);
+
+  std::vector<G4AssemblyTriplet>::iterator avitr = cpyasm->GetTripletsIterator();
+  for( std::size_t i = 0; i < cpyasm->TotalTriplets(); ++i, ++avitr)
+  {
+    G4AssemblyTriplet triplet = *avitr;
+    G4Transform3D Ta(*triplet.GetRotation(), triplet.GetTranslation());
+    if ( triplet.IsReflection() )  { Ta = Ta * G4ReflectZ3D(); }
+
+    G4Transform3D Tfinal = transformation * Ta;
+
+    if ( triplet.GetVolume() )
+    {
+      vasm->AddPlacedVolume(triplet.GetVolume(), Tfinal);
+    }
+    else if ( triplet.GetAssembly() )
+    {
+      // Place volumes in this assembly with composed transformation
+      G4Exception("MEP48MagnetAssembly::AddAssmblyVolumes(..)", "AssmblyVolume", FatalException, "Triplet with assembly is not supported");
+//       G4ThreeVector atranslate(Tfinal.getTranslation());
+//       AddAssmblyVolumes(vasm, triplet.GetAssembly(), atranslate, new G4RotationMatrix(Tfinal.getRotation()));
+    }
+    else
+    {
+      G4Exception("MEP48MagnetAssembly::AddAssmblyVolumes(..)", "GeomVol0003", FatalException, "Triplet has no volume and no assembly");
+    }
+  }
+}
 
 
